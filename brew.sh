@@ -2,8 +2,21 @@
 
 # Install command-line tools using Homebrew.
 
-# Make sure we’re using the latest Homebrew.
-brew update
+# Ask for the administrator password upfront.
+sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until the script has finished.
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+# Check for Homebrew,
+# Install if we don't have it
+if test ! $(which brew); then
+  echo "Installing homebrew..."
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+# Turn off analytics
+brew analytics off
 
 # Upgrade any already-installed formulae.
 brew upgrade
@@ -12,16 +25,18 @@ brew upgrade
 BREW_PREFIX=$(brew --prefix)
 
 # Install GNU core utilities (those that come with macOS are outdated).
-# Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
+echo 'Be sure to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.'
 brew install coreutils
 ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
 
 # Install some other useful utilities like `sponge`.
 brew install moreutils
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
+echo 'Add `$(brew --prefix findutils)/libexec/gnubin` to `$PATH` if you would prefer these be the defaults.'
 brew install findutils
 # Install GNU `sed`, overwriting the built-in `sed`.
-brew install gnu-sed --with-default-names
+echo 'Be sure to add `$(brew --prefix gnu-sed)/libexec/gnubin` to `$PATH`.'
+brew install gnu-sed
 # Install a modern version of Bash.
 brew install bash
 brew install bash-completion2
@@ -33,17 +48,17 @@ if ! fgrep -q "${BREW_PREFIX}/bin/bash" /etc/shells; then
 fi;
 
 # Install `wget` with IRI support.
-brew install wget --with-iri
+brew install wget
 
 # Install GnuPG to enable PGP-signing commits.
 brew install gnupg
 
 # Install more recent versions of some macOS tools.
-brew install vim --with-override-system-vi
+brew install vim
+echo 'If you would like to map vi so it opens the brew-installed vim: ln -s /usr/local/bin/vim /usr/local/bin/vi'
 brew install grep
 brew install openssh
 brew install screen
-brew install php
 brew install gmp
 
 # Install font tools.
@@ -84,7 +99,6 @@ brew install ack
 brew install git
 brew install git-lfs
 brew install gs
-brew install imagemagick --with-webp
 brew install lua
 brew install lynx
 brew install p7zip
@@ -97,5 +111,40 @@ brew install tree
 brew install vbindiff
 brew install zopfli
 
-# Remove outdated versions from the cellar.
-brew cleanup
+# Development tool casks
+#brew cask install sublime-text
+brew cask install --appdir="/Applications" sublime-text
+
+# Misc casks
+brew cask install --appdir="/Applications" google-chrome
+#brew cask install --appdir="/Applications" firefox
+brew cask install --appdir="/Applications" skype
+brew cask install --appdir="/Applications" slack
+#brew cask install --appdir="/Applications" evernote
+#brew cask install --appdir="/Applications" 1password
+brew cask install --appdir="/Applications" keepassxc
+
+
+brew install tmux
+
+brew install node
+brew install yarn
+
+brew install maven
+brew install midnight-commander
+
+
+#https://java.christmas/2019/16
+brew cask install AdoptOpenJDK/openjdk/adoptopenjdk{8,11,13}
+brew install jenv
+
+jenv doctor
+#jenv enable-plugin export
+#jenv enable-plugin maven
+
+for version in 8 11 13
+    do
+        jenv add /Library/Java/JavaVirtualMachines/adoptopenjdk-$version.jdk/Contents/Home
+done
+
+jenv versions
