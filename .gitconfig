@@ -185,3 +185,9 @@
 [url "git://gist.github.com/"]
 
 	insteadOf = "gist:"
+[user]
+	name = Alexey Mishin
+	email = alexx.mishin@gmail.com
+
+[gpg]
+	program = gpg
