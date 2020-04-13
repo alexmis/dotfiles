@@ -120,9 +120,13 @@ brew cask install --appdir="/Applications" google-chrome
 #brew cask install --appdir="/Applications" firefox
 brew cask install --appdir="/Applications" skype
 brew cask install --appdir="/Applications" slack
-#brew cask install --appdir="/Applications" evernote
+brew cask install --appdir="/Applications" evernote
 #brew cask install --appdir="/Applications" 1password
 brew cask install --appdir="/Applications" keepassxc
+brew cask install --appdir="/Applications" postman
+brew cask install --appdir="/Applications" zoomus
+brew cask install --appdir="/Applications" duet
+brew cask install --appdir="/Applications" adobe-acrobat-reader
 
 
 brew install tmux
@@ -135,14 +139,14 @@ brew install midnight-commander
 
 
 #https://java.christmas/2019/16
-brew cask install AdoptOpenJDK/openjdk/adoptopenjdk{8,11,13}
+brew cask install AdoptOpenJDK/openjdk/adoptopenjdk{8,11,14}
 brew install jenv
 
 jenv doctor
 #jenv enable-plugin export
 #jenv enable-plugin maven
 
-for version in 8 11 13
+for version in 8 11 14
     do
         jenv add /Library/Java/JavaVirtualMachines/adoptopenjdk-$version.jdk/Contents/Home
 done
