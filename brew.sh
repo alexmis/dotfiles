@@ -2,9 +2,6 @@
 
 # Install command-line tools using Homebrew.
 
-# Ask for the administrator password upfront.
-sudo -v
-
 # Keep-alive: update existing `sudo` time stamp until the script has finished.
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
@@ -109,25 +106,28 @@ brew install rlwrap
 brew install ssh-copy-id
 brew install tree
 brew install vbindiff
-brew install zopfli
+#brew install zopfli
+
+#Docker
+brew cask install --appdir="/Applications" docker
+brew cask install --appdir="/Applications" virtualbox
 
 # Development tool casks
-#brew cask install sublime-text
 brew cask install --appdir="/Applications" sublime-text
 
 # Misc casks
 brew cask install --appdir="/Applications" google-chrome
 #brew cask install --appdir="/Applications" firefox
 brew cask install --appdir="/Applications" skype
-brew cask install --appdir="/Applications" slack
+#brew cask install --appdir="/Applications" slack
 brew cask install --appdir="/Applications" evernote
 #brew cask install --appdir="/Applications" 1password
 brew cask install --appdir="/Applications" keepassxc
 brew cask install --appdir="/Applications" postman
 brew cask install --appdir="/Applications" zoomus
-brew cask install --appdir="/Applications" duet
+#brew cask install --appdir="/Applications" duet
 brew cask install --appdir="/Applications" adobe-acrobat-reader
-
+#brew cask install --appdir="/Applications" viber
 
 brew install tmux
 
@@ -137,18 +137,5 @@ brew install yarn
 brew install maven
 brew install midnight-commander
 
+brew insatll httpd
 
-#https://java.christmas/2019/16
-brew cask install AdoptOpenJDK/openjdk/adoptopenjdk{8,11,14}
-brew install jenv
-
-jenv doctor
-#jenv enable-plugin export
-#jenv enable-plugin maven
-
-for version in 8 11 14
-    do
-        jenv add /Library/Java/JavaVirtualMachines/adoptopenjdk-$version.jdk/Contents/Home
-done
-
-jenv versions
